@@ -14,7 +14,9 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.media.index')->with([
+            'media'   => Media::latest()->paginate(5)
+        ]);
     }
 
     /**

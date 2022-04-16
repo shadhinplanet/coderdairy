@@ -1,0 +1,213 @@
+.problem-screenshort img {
+    display: inline-block;
+    width: 230px;
+}
+
+.formLabel {
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+}
+
+.formInput {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+    background-color: #ccc;
+}
+
+.accordion:after {
+    content: "\002B";
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+    font-size: 21px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+/* Categories Page */
+.wp_categories_page_content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wp_categories_form {
+    width: 35%;
+}
+.wp_categories_form.wp_category_edit_form {
+    /* margin: auto; */
+    width: auto;
+}
+.wp_categories_page_content h1 {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 15px;
+}
+.wp_categories_table {
+    width: 60%;
+}
+
+/* Custom Checkbox */
+.check {
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+    width: auto;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+}
+.check:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -6px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(34, 50, 84, 0.03);
+    opacity: 1;
+    transition: all 0.2s ease;
+}
+.check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+    margin-right: 7px;
+}
+.check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+}
+.check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+    transition: all 0.2s linear;
+}
+.check:hover:before {
+    opacity: 1;
+}
+.check:hover svg {
+    stroke: #4285f4;
+}
+.cbx:checked + .check svg {
+    stroke: #4285f4;
+}
+.cbx:checked + .check svg path {
+    stroke-dashoffset: 1;
+    transition: all 0.3s linear;
+}
+.cbx:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+
+    transition-delay: 0.15s;
+}
+.single_form_field.title_field p {
+    font-size: 14px;
+    margin-top: 6px;
+}
+.single_form_field.title_field p a {
+    color: #0073aa;
+}
+.single_form_field {
+    margin-bottom: 15px;
+}
+.single_form_field label {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+}
+.single_form_field input,
+.single_form_field textarea {
+    width: 100%;
+    padding: 7px 15px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    outline: 1px solid #fff;
+}
+.single_form_field input:focus,
+.single_form_field textarea:focus {
+    outline: 1px solid #0073aa;
+}
+
+.post_title_column ul {
+    display: flex;
+    margin-top: 5px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+.single_table_item:hover .post_title_column ul {
+    opacity: 1;
+}
+
+.post_title_column ul li {
+    border-right: 1px solid #b4b5b6;
+    line-height: 1;
+    margin-right: 7px;
+}
+.post_title_column ul li:last-child {
+    border: 0;
+}
+.post_title_column ul li a,
+.post_title_column ul li button {
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    line-height: 1;
+    padding-right: 10px;
+    background-color: transparent;
+    border: 0;
+}
+.post_title_column ul li button {
+    color: #b32d2e;
+}
+.post_title_column ul li:last-child a {
+    border: 0;
+}
+.post_title_column ul li:nth-child(2) a {
+    color: #b32d2e;
+}
+.post_title_column ul li a:hover {
+    color: #1d5b8d;
+}

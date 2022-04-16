@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
@@ -14,7 +15,9 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.activity.index')->with([
+            'activities'    => Activity::where('user_id',Auth::id())->latest()->paginate(10)
+        ]);
     }
 
     /**

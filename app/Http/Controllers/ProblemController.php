@@ -48,7 +48,9 @@ class ProblemController extends Controller
      */
     public function show(Problem $problem)
     {
-        dd($problem);
+        return view('admin.problem.show')->with([
+            'problem'=>$problem
+        ]);
     }
 
     /**
