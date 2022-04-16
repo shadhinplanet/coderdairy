@@ -1,87 +1,61 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    <!-- General Report -->
+    <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
 
-<div class="wp_categories_page_content">
+        <!-- Start Recent Sales -->
+        <div class="card col-span-4 xl:col-span-1">
+            <div class="card-header flex justify-between items-center">
+                <h2>Tags</h2>
+                <a href="{{ route('tag.create') }}" class="btn-shadow">Add New</a>
+            </div>
 
-    <div class="wp_categories_form">
-        <h1>Add New Tag</h1>
-        <form action="{{ route('tags.store') }}" method="POST">
-            @csrf
-            <div class="single_form_field name_field">
-                <label for="tag_name">Name</label>
-                <input type="text" name="tag_name" id="tag_name">
-                <small>The name is how it appears on your site.</small>
-            </div>
-            <div class="single_form_field slug_field">
-                <label for="tag_slug">Slug</label>
-                <input type="text" name="tag_slug" id="tag_slug">
-                <small>The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only
-                    letters, numbers, and
-                    hyphens.</small>
-            </div>
-            <div class="single_form_field slug_field">
-                <label for="tag_description">Description</label>
-                <textarea name="tag_description" id="tag_description" rows="3"></textarea>
-                <small>The description is not prominent by default; however, some themes may show it.</small>
-            </div>
-            <div class="single_form_field slug_field">
-                <button type="submit" class="btn btn_primary">Add New Tag</button>
-            </div>
-        </form>
-    </div>
-    <div class="wp_categories_table">
-        <h1>All Tags</h1>
-        <div class="posts_table">
             <table class="table-auto w-full text-left">
                 <thead>
                     <tr>
-                        <th class="px-4 py-2 border-r">Name</th>
-                        <th class="px-4 py-2 border-r">Slug</th>
-                        <th class="px-4 py-2 border-r">Description</th>
+                        <th class="px-4 py-2 border-r text-center flex-1">Name</th>
+                        <th class="px-4 py-2 border-r text-center flex-1">Slug</th>
+                        <th class="px-4 py-2 border-r text-center flex-1">Problem</th>
+                        <th class="px-4 py-2 border-r text-center flex-1">Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-gray-600">
 
                     @forelse ($tags as $tag)
-                        <tr class="single_table_item">
-                            <td class="post_title_column border border-l-0 px-4 py-2"><a href="#">{{ $tag->name }}</a>
-                                <ul>
-                                    <li><a href="{{ route('tags.edit', $tag) }}">Edit</a></li>
-                                    <li>
-                                        <form action="{{ route('tags.destroy', $tag) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">Trash</button>
-                                        </form>
-
-                                    </li>
-                                    <li><a href="#">View</a></li>
-                                </ul>
-                            </td>
-                            <td class="border border-l-0 px-4 py-2 lowercase"><a href="#">{{ $tag->slug }}</a></td>
-                            <td class="border border-l-0 px-4 py-2">
-                                @if ($tag->description)
-                                    {{ $tag->description }}
-                                @else
-                                    ---
-                                @endif
+                        <tr>
+                            <td class="border border-l-0 px-4 py-2 flex-1">{{ $tag->name }}</td>
+                            <td class="border border-l-0 px-4 py-2 flex-1 lowercase">{{ $tag->slug }}</td>
+                            <td class="border border-l-0 px-4 py-2 flex-1 capitalize"></td>
+                            <td class="border border-l-0 px-4 py-2 flex-1">
+                                <div class="capitalize flex space-x-2 text-xs justify-center">
+                                    <a href="{{ route('tag.edit', $tag) }}" class="btn-bs-primary">Edit</a>
+                                    <form action="{{ route('tag.destroy', $tag) }}" method="POST"
+                                        onsubmit="return confirm('Do you want to delete?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-bs-danger">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" style="text-align: center">No Tag Found</td>
+                            <td class="border border-l-0 px-4 py-2 text-center text-red-500" colspan="5">No Tag Found</td>
                         </tr>
                     @endforelse
 
                 </tbody>
             </table>
+
             <div class="p-5">
                 {{ $tags->links() }}
             </div>
+
+
         </div>
+        <!-- End Recent Sales -->
+
     </div>
-
-</div>
-
+    <!-- End General Report -->
 @endsection

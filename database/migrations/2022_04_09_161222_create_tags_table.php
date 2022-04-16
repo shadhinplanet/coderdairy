@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->timestamps();
         });
+
+        Schema::create('problems_tags', function (Blueprint $table) {
+            $table->unsignedBigInteger('problem_id');
+            $table->unsignedBigInteger('tag_id');
+        });
+
     }
 
     /**
@@ -29,5 +35,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('problems_tags');
     }
 };

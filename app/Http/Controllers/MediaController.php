@@ -71,7 +71,7 @@ class MediaController extends Controller
      */
     public function update(Request $request, Media $media)
     {
-        //
+        return redirect()->route('media.index')->with('succcess','Media Updated');
     }
 
     /**
@@ -82,6 +82,7 @@ class MediaController extends Controller
      */
     public function destroy(Media $media)
     {
-        //
+        $media->delete();
+        return redirect()->route('media.index')->with('succcess','Media Deleted');
     }
 }

@@ -9,7 +9,7 @@
     <div class="card col-span-4 xl:col-span-1">
         <div class="card-header flex justify-between items-center">
             <h2>Media</h2>
-            <a href="{{ route('problem.create') }}" class="btn-shadow">shaow button</a>
+            <a href="{{ route('media.create') }}" class="btn-shadow">Add new</a>
         </div>
 
         <table class="table-auto w-full text-left">

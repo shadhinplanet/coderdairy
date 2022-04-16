@@ -26,7 +26,7 @@ class ProblemController extends Controller
      */
     public function create()
     {
-
+        return view('admin.problem.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class ProblemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -73,7 +73,7 @@ class ProblemController extends Controller
      */
     public function update(Request $request, Problem $problem)
     {
-        //
+        return redirect()->route('problem.index')->with('succcess','Problem Updated');
     }
 
     /**
@@ -84,6 +84,7 @@ class ProblemController extends Controller
      */
     public function destroy(Problem $problem)
     {
-        //
+        $problem->delete();
+        return redirect()->route('problem.index')->with('succcess','Problem Deleted');
     }
 }
