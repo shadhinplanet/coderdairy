@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Problem;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProblemController extends Controller
 {
@@ -26,7 +30,10 @@ class ProblemController extends Controller
      */
     public function create()
     {
-        return view('admin.problem.create');
+        return view('admin.problem.create')->with([
+            'categories'    => Category::orderBy('name','ASC')->get(),
+            'tags'          => Tag::orderBy('name','ASC')->get(),
+        ]);
     }
 
     /**
@@ -37,7 +44,27 @@ class ProblemController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'name'  => ['required','string','max:255'],
+            'visibility'    => ['required','not_in:none'],
+            'category_id'    => ['required','not_in:none'],
+        ]);
+
+
+            $problem        =  Problem::create([
+            'name'          => $request->name,
+            'slug'          => Str::slug($request->name),
+            'description'   => $request->description,
+            'visibility'    => $request->visibility,
+            'user_id'       => Auth::id(),
+            'category_id'   => $request->category_id
+            ]);
+
+            $problem->tags()->attach($request->tags);
+
+
+        return redirect()->route('problem.index')->with('success','Created Successfully');
+
     }
 
     /**

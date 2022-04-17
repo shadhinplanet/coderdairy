@@ -17,6 +17,14 @@ class Problem extends Model
         return $this->belongsTo(Category::class,'category_id','id');
     }
 
+
+    // Many to Many Relationsip
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'problems_tags','problem_id','tag_id');
+    }
+
+
     // Change Default route key name
     public function getRouteKeyName()
     {

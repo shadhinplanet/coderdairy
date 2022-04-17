@@ -1,6 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('content')
+
+
+    @if (Session('success'))
+        <p>{{ Session('success') }}</p>
+    @endif
+
     <!-- General Report -->
     <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
 
@@ -32,9 +38,10 @@
                                     class="hover:text-teal-600">{{ $problem->name }}</a></td>
                             <td class="border border-l-0 px-4 py-2 capitalize text-xs">{{ $problem->category->name }}</td>
                             <td class="border border-l-0 px-4 py-2 capitalize">
-                                <a href="#" class="text-xs bg-teal-600 text-white rounded-sm px-2 py-1">Laravel</a>
-                                <a href="#" class="text-xs bg-teal-600 text-white rounded-sm px-2 py-1">Laravel</a>
-                                <a href="#" class="text-xs bg-teal-600 text-white rounded-sm px-2 py-1">Laravel</a>
+                               @foreach ($problem->tags as $tag)
+                                <a href="#" class="text-xs bg-teal-600 text-white rounded-sm px-2 py-1">{{ $tag->name }}</a>
+                               @endforeach
+
                             </td>
                             <td class="border border-l-0 px-4 py-2 ">
                                 <div class="capitalize flex space-x-2 text-xs">

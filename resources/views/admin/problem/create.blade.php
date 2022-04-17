@@ -32,29 +32,33 @@
 
                         <div class="mt-6 flex">
                             <div class="flex-1 mr-2">
-                                <label for="country" class="formLabel">Category</label>
+                                <label for="category_id" class="formLabel">Category</label>
 
-                                <select name="country" id="country" class="formInput">
+                                <select name="category_id" id="category_id" class="formInput">
                                     <option value="none">Select Category</option>
-
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
-                                @error('country')
+                                @error('category_id')
                                     <p class="text-red-700">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <div class="flex-1 ml-2">
-                                <label for="status" class="formLabel">Visibility</label>
-                                <select name="status" id="status" class="formInput">
-                                    <option value="none" {{ old('status') == 'none' ? 'selected' : '' }}>Select
-                                        Visibility
+                                <label for="visibility" class="formLabel">Visibility</label>
+                                <select name="visibility" id="visibility" class="formInput">
+                                    <option value="none">Select Visibility
                                     </option>
-                                    <option value="active" {{ old('status') == 'private' ? 'selected' : '' }}>Private
+                                    <option value="private" {{ old('visibility') == 'private' ? 'selected' : '' }}>Private
                                     </option>
-                                    <option value="inactive {{ old('status') == 'public' ? 'selected' : '' }}">
+                                    <option value="public" {{ old('visibility') == 'public' ? 'selected' : '' }}>
                                         Public
                                     </option>
                                 </select>
+                                @error('visibility')
+                                    <p class="text-red-700">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -73,17 +77,16 @@
 
                         <div class="mt-6 flex">
                             <div class="flex-1">
-                                <label for="country" class="formLabel">Tags</label>
-                                <input type="checkbox" id="html" name="tag[]" value="Bike">
-                                <label for="html" class="mr-2 cursor-pointer"> HTML</label>
-                                <input type="checkbox" id="css" name="tag[]" value="Car">
-                                <label for="css" class="mr-2 cursor-pointer"> CSS</label>
-                                <input type="checkbox" id="laravel" name="tag[]" value="Boat">
-                                <label for="laravel" class="mr-2 cursor-pointer"> Laravel</label>
-                                <input type="checkbox" id="php" name="tag[]" value="Boat">
-                                <label for="php" class="mr-2 cursor-pointer"> OOP php</label>
+                                <label for="tags" class="formLabel">Tags</label>
 
-                                @error('country')
+                                @foreach ($tags as $tag)
+                                <input type="checkbox" id="{{ $tag->slug }}" name="tags[]" value="{{ $tag->id }}">
+                                <label for="{{ $tag->slug }}" class="mr-2 cursor-pointer"> {{ $tag->name }}</label>
+                                @endforeach
+
+
+
+                                @error('tags')
                                     <p class="text-red-700">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -92,9 +95,6 @@
                         <div class="mt-6">
                             <div class="flex-1 ml-1 mr-1">
                                 <label for="thumbnail" class="formLabel">Thumbnails</label>
-                                {{-- <label for="thumbnail"
-                                    class="formLabel border-2 border-dashed border-teal-600 py-10 text-center rounded-md">Click
-                                    to upload image <br> <span class="text-sm">Multiple image supported</span></label> --}}
                                 <input type="file" name="thumbnail[]" multiple id="thumbnail" class="w-full border-2 border-dashed border-teal-600 py-20 text-center rounded-md">
                                 @error('thumbnail')
                                     <p class="text-red-700">{{ $message }}</p>
