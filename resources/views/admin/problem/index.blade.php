@@ -2,11 +2,6 @@
 
 @section('content')
 
-
-    @if (Session('success'))
-        <p>{{ Session('success') }}</p>
-    @endif
-
     <!-- General Report -->
     <div class="grid grid-cols-4 gap-6 xl:grid-cols-1">
 

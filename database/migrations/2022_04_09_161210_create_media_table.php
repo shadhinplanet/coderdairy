@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('media', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
+            $table->foreignId('user_id');
             $table->foreignId('problem_id')->nullable();
             $table->foreignId('solution_id')->nullable();
             $table->timestamps();

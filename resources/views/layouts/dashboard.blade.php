@@ -18,12 +18,7 @@
 </head>
 
 <body class="bg-gray-100">
-
-
-
-@include('admin.components.navbar')
-
-
+    @include('admin.components.navbar')
     <!-- strat wrapper -->
     <div class="h-screen flex flex-row flex-wrap">
 
@@ -31,7 +26,8 @@
 
         <!-- strat content -->
         <div class="bg-gray-100 flex-1 p-6 md:mt-16">
-         @yield('content')
+            @include('layouts.messages')
+            @yield('content')
         </div>
     </div>
     <!-- end wrapper -->
@@ -43,6 +39,13 @@
     <script src="{{ asset('admin/js/scripts.js') }}"></script>
     <!-- end script -->
 
+    <script>
+        jQuery(document).ready(function($) {
+            setTimeout(() => {
+                $("#status_message").slideUp("slow");
+            }, 2000);
+        });
+    </script>
     @yield('scripts')
 
 </body>

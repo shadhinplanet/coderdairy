@@ -23,10 +23,11 @@
                 <tbody class="text-gray-600">
 
                     @forelse ($tags as $tag)
+                    
                         <tr>
                             <td class="border border-l-0 px-4 py-2 flex-1">{{ $tag->name }}</td>
                             <td class="border border-l-0 px-4 py-2 flex-1 lowercase">{{ $tag->slug }}</td>
-                            <td class="border border-l-0 px-4 py-2 flex-1 capitalize"></td>
+                            <td class="border border-l-0 px-4 py-2 flex-1 capitalize">{{count($tag->problems)}}</td>
                             <td class="border border-l-0 px-4 py-2 flex-1">
                                 <div class="capitalize flex space-x-2 text-xs justify-center">
                                     <a href="{{ route('tag.edit', $tag) }}" class="btn-bs-primary">Edit</a>

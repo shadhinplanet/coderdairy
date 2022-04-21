@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ActivityEvent;
 use App\Models\Category;
+use App\Models\Media;
 use App\Models\Problem;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProblemController extends Controller
@@ -31,8 +34,8 @@ class ProblemController extends Controller
     public function create()
     {
         return view('admin.problem.create')->with([
-            'categories'    => Category::orderBy('name','ASC')->get(),
-            'tags'          => Tag::orderBy('name','ASC')->get(),
+            'categories'    => Category::where('user_id',Auth::id())->orderBy('name','ASC')->get(),
+            'tags'          => Tag::where('user_id',Auth::id())->orderBy('name','ASC')->get(),
         ]);
     }
 
@@ -62,8 +65,25 @@ class ProblemController extends Controller
 
             $problem->tags()->attach($request->tags);
 
+            if(!empty($request->file('thumbnails'))){
+                foreach ($request->thumbnails as $thumb) {
+                    $image = time() . '-' . $thumb->getClientOriginalName();
+                    $thumb->storeAs('public/uploads',$image);
+                    // Storage::put('public/upload',$image);
 
-        return redirect()->route('problem.index')->with('success','Created Successfully');
+                    Media::create([
+                    'name'          => $image,
+                    'user_id'       => Auth::id(),
+                    'problem_id'    => $problem->id
+                    ]);
+                }
+            }
+
+
+            // Activity Event Fire
+
+
+        return redirect()->route('problem.index')->with('success','New Entry Created Successfully');
 
     }
 
@@ -76,7 +96,7 @@ class ProblemController extends Controller
     public function show(Problem $problem)
     {
         return view('admin.problem.show')->with([
-            'problem'=>$problem
+            'problem' => $problem,
         ]);
     }
 
@@ -88,7 +108,11 @@ class ProblemController extends Controller
      */
     public function edit(Problem $problem)
     {
-        //
+        return view('admin.problem.edit')->with([
+            'problem'   => $problem,
+            'categories'    => Category::where('user_id',Auth::id())->orderBy('name','ASC')->get(),
+            'tags'          => Tag::where('user_id',Auth::id())->orderBy('name','ASC')->get(),
+        ]);
     }
 
     /**
@@ -100,7 +124,27 @@ class ProblemController extends Controller
      */
     public function update(Request $request, Problem $problem)
     {
-        return redirect()->route('problem.index')->with('succcess','Problem Updated');
+
+        $request->validate([
+            'name'  => ['required','string','max:255'],
+            'visibility'    => ['required','not_in:none'],
+            'category_id'    => ['required','not_in:none'],
+        ]);
+
+
+            $problem->update([
+            'name'          => $request->name,
+            'slug'          => Str::slug($request->name),
+            'description'   => $request->description,
+            'visibility'    => $request->visibility,
+            'user_id'       => Auth::id(),
+            'category_id'   => $request->category_id
+            ]);
+
+            $problem->tags()->sync($request->tags);
+
+
+        return redirect()->route('problem.index')->with('success','Problem Updated');
     }
 
     /**
@@ -111,7 +155,8 @@ class ProblemController extends Controller
      */
     public function destroy(Problem $problem)
     {
+        $problem->tags()->detach();
         $problem->delete();
-        return redirect()->route('problem.index')->with('succcess','Problem Deleted');
+        return redirect()->route('problem.index')->with('success','Problem Deleted');
     }
 }

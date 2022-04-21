@@ -8,6 +8,7 @@
             <!-- header -->
             <div class="p-5 border-b flex justify-between items-center">
                 <h2 class="text-xl">{{ $problem->name }}</h2>
+                <a href="" class="btn-shadow">Add Solution</a>
                 <a href="{{ route('problem.index') }}" class="btn-shadow">Back</a>
             </div>
             <!-- end header -->
@@ -100,9 +101,11 @@
                     <div class="flex flex-col">
                         <h1 class="font-semibold text-sm mb-1">Tags</h1>
                         <div class="space-x-2">
-                            <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200" href="#">PHP</a>
-                            <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200" href="#">PHP</a>
-                            <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200" href="#">PHP</a>
+
+                            @foreach ($problem->tags as $tag)
+                            <a class="text-sm border py-1 px-2 rounded-sm hover:bg-teal-200 duration-200" href="#">{{ $tag->name }}</a>
+                            @endforeach
+
                         </div>
                     </div>
 
@@ -121,21 +124,13 @@
 
                 <div class="w-4/12">
                     <div class="grid gap-2 grid-flow-row grid-cols-3 problem-gallery">
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
+
+                        @foreach ($problem->media as $media)
+                            <a href="{{ $media->name }}">
+                                <img src="{{ $media->name }}" class="m-1" alt="">
+                            </a>
+                        @endforeach
+
                     </div>
                 </div>
             </div>

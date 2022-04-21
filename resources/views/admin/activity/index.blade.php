@@ -25,7 +25,7 @@
                 @forelse ($activities as $activity)
                 <tr>
                     <td class="border border-l-0 px-4 py-2">{{ $activity->message }}</td>
-                    <td class="border border-l-0 px-4 py-2 lowercase">{{ $activity->model }}</td>
+                    <td class="border border-l-0 px-4 py-2">{{ $activity->model }}</td>
                     <td class="border border-l-0 px-4 py-2 capitalize">{{ $activity->created_at->diffForHumans() }}</td>
                     <td class="border border-l-0 px-4 py-2 text-center">
                        <div class="capitalize flex space-x-2 text-xs">

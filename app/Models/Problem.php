@@ -24,6 +24,12 @@ class Problem extends Model
         return $this->belongsToMany(Tag::class,'problems_tags','problem_id','tag_id');
     }
 
+    public function media()
+    {
+        return $this->hasMany(Media::class,'problem_id','id');
+    }
+
+
 
     // Change Default route key name
     public function getRouteKeyName()
