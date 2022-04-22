@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProblemController;
+use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::resource('media', MediaController::class);
     Route::resource('activity', ActivityController::class);
     Route::resource('problem', ProblemController::class);
+    Route::resource('solution', SolutionController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('tag', TagController::class);
 });

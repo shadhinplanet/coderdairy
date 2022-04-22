@@ -30,6 +30,11 @@ class Problem extends Model
     }
 
 
+    // Solution
+    public function solutions()
+    {
+        return $this->hasMany(Solution::class);
+    }
 
     // Change Default route key name
     public function getRouteKeyName()

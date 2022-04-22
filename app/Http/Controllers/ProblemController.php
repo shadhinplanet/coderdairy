@@ -6,6 +6,7 @@ use App\Events\ActivityEvent;
 use App\Models\Category;
 use App\Models\Media;
 use App\Models\Problem;
+use App\Models\Solution;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +98,7 @@ class ProblemController extends Controller
     {
         return view('admin.problem.show')->with([
             'problem' => $problem,
+            'solutions' => Solution::where('problem_id',$problem->id)->where('user_id',Auth::id())->latest()->get()
         ]);
     }
 
@@ -143,6 +145,20 @@ class ProblemController extends Controller
 
             $problem->tags()->sync($request->tags);
 
+
+            if(!empty($request->file('thumbnails'))){
+                foreach ($request->thumbnails as $thumb) {
+                    $image = time() . '-' . $thumb->getClientOriginalName();
+                    $thumb->storeAs('public/uploads',$image);
+                    // Storage::put('public/upload',$image);
+
+                    Media::create([
+                    'name'          => $image,
+                    'user_id'       => Auth::id(),
+                    'problem_id'    => $problem->id
+                    ]);
+                }
+            }
 
         return redirect()->route('problem.index')->with('success','Problem Updated');
     }

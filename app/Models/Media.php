@@ -18,7 +18,10 @@ class Media extends Model
        if(str_starts_with($name,'http')){
         return $name;
        }else{
-           return asset('storage/uploads/'.$name);
+           return [
+               'name'=>$name,
+               'url'=>asset('storage/uploads/'.$name)
+           ];
        }
     }
 

@@ -8,7 +8,7 @@
             <!-- header -->
             <div class="p-5 border-b flex justify-between items-center">
                 <h2 class="text-xl">{{ $problem->name }}</h2>
-                <a href="" class="btn-shadow">Add Solution</a>
+                <a href="{{ route('solution.create') }}?problem_id={{ $problem->id }}" class="btn-shadow">Add Solution</a>
                 <a href="{{ route('problem.index') }}" class="btn-shadow">Back</a>
             </div>
             <!-- end header -->
@@ -126,8 +126,8 @@
                     <div class="grid gap-2 grid-flow-row grid-cols-3 problem-gallery">
 
                         @foreach ($problem->media as $media)
-                            <a href="{{ $media->name }}">
-                                <img src="{{ $media->name }}" class="m-1" alt="">
+                            <a href="{{ $media->name['url'] }}">
+                                <img src="{{ $media->name['url'] }}" class="m-1" alt="">
                             </a>
                         @endforeach
 
@@ -138,11 +138,13 @@
         </div>
         <!-- end solutionn Overview -->
 
-        <!-- solutionn Overview -->
+
+        @forelse ($solutions as $index=>$solution)
+                <!-- solutionn Overview -->
         <div class="card mt-6">
             <!-- header -->
             <div class="flex flex-row justify-between accordion">
-                <h1 class="h6">Solution # </h1>
+                <h1 class="h6">Solution #{{ $index+1 }} </h1>
             </div>
             <!-- end header -->
 
@@ -150,36 +152,30 @@
             <div class="flex justify-between panel p-0">
                 <div class="p-6 w-8/12">
                     <div class="mb-10 items-center">
-                        <h4 class="h4">Solution</h4>
-                        <p class="text-black">Amore sales in comparison to last month.more sales in comparison to last
-                            month.more sales in comparison to last month.more sales in comparison to last month.more sales
-                            in comparison to last month.% more sales in comparison to last month.</p>
+                        {!! $solution->content !!}
                     </div>
                 </div>
 
                 <div class="w-4/12 p-5">
                     <div class="grid gap-2 grid-flow-row grid-cols-3 problem-gallery">
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
-                        <a href="https://picsum.photos/1024?random={{ rand(1,1000) }}">
-                            <img src="https://picsum.photos/150?random={{ rand(1,1000) }}" class="m-1" alt="">
-                        </a>
+
+                        @foreach ($solution->media as $media)
+                            <a href="{{ $media->name['url'] }}">
+                                <img src="{{ $media->name['url'] }}" class="m-1" alt="">
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <!-- end body -->
         </div>
         <!-- end solutionn Overview -->
+        @empty
+            <div class="text-center mt-5">
+                <h3>No Solution found</h3>
+            </div>
+        @endforelse
+
 
 
     </div>

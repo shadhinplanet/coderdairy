@@ -24,8 +24,10 @@
 
                 @forelse ($media as $item)
                 <tr>
-                    <td class="border border-l-0 px-4 py-2">{{ $item->name }}</td>
-                    <td class="border border-l-0 px-4 py-2 capitalize">{{ $item->name }}</td>
+                    <td class="border border-l-0 px-4 py-2">
+                        <img src="{{ $item->name['url'] }}" width="80" alt="">
+                    </td>
+                    <td class="border border-l-0 px-4 py-2 capitalize">{{ $item->name['name'] }}</td>
                     <td class="border border-l-0 px-4 py-2 ">
                        <div class="capitalize flex space-x-2 text-xs">
                         <a href="#" class="btn-bs-primary">Edit</a>
